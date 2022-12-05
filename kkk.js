@@ -1,0 +1,1 @@
+const kkk = 0;
