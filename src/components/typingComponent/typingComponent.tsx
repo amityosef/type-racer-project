@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { SENTENCES_COUNT } from "../../common/consts";
 import { sentences } from "../../common/sentences";
+import { Clock } from "../clock/clock";
 import { TextDisplay } from "../textDisplay/textDisplay";
 import { TypingInput } from "../typingInput/typingInput";
 import "./typingComponent.css";
@@ -12,6 +13,7 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
   const [currSentence, setCurrSentence] = useState<string>(sentences[randomNumber]);
   const [wordIndex, setWordIndex] = useState<number>(0);
   const [iswrong, setIswrong] = useState<boolean>(false);
+  const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
 
   const wordCheckFunction = useCallback((value: string) => {
     if (currSentence.split(' ')[wordIndex].trim() === value.trim()) {
@@ -26,7 +28,11 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
   return (
     <div className="typing-container">
       <TextDisplay text={currSentence} currWordIndex={wordIndex} isCurrWordwrong={iswrong} />
-      <TypingInput wordCheckFunction={wordCheckFunction} />
+      <div className="middle-bar">
+        <TypingInput wordCheckFunction={wordCheckFunction} isTimeUp={isTimeUp} />
+        <Clock setIsTimeUp={() => setIsTimeUp(true)} />
+      </div>
+
     </div>
   );
 };
