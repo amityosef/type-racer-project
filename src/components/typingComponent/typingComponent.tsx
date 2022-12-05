@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { SENTENCES_COUNT } from "../../common/consts";
 import { sentences } from "../../common/sentences";
 import { Clock } from "../clock/clock";
+import { Leadboards } from "../leadboards/leadboards";
 import { TextDisplay } from "../textDisplay/textDisplay";
 import { TypingInput } from "../typingInput/typingInput";
 import "./typingComponent.css";
@@ -32,7 +33,7 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
         <TypingInput wordCheckFunction={wordCheckFunction} isTimeUp={isTimeUp} />
         <Clock setIsTimeUp={() => setIsTimeUp(true)} />
       </div>
-
+      <Leadboards results={[{ name: "kkk", score: "2323" }, { name: "sdfdsgf", score: "2323" }, { name: "sdfdsf", score: "2323" }, { name: "kkk", score: "2323" }, { name: "sdfdsgf", score: "2323" }, { name: "sdfdsf", score: "2323" }, { name: "sfgsg", score: "2323" }]} />
     </div>
   );
 };
