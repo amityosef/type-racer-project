@@ -12,19 +12,20 @@ interface TypingComponentProps { }
 
 export const TypingComponent = ({ }: TypingComponentProps) => {
   const randomNumber = Math.floor(Math.random() * SENTENCES_COUNT)
-  const [currSentence, setCurrSentence] = useState<string>(sentences[randomNumber]);
+  // const [currSentence, setCurrSentence] = useState<string>(sentences[randomNumber]);
+  const [currSentence, setCurrSentence] = useState<string>("kkk kkk kkk kkk");
   const [wordIndex, setWordIndex] = useState<number>(0);
   const [iswrong, setIswrong] = useState<boolean>(false);
   const [time, setTime] = useState<number>(ROUND_TIME);
+  const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const resultService = new ResultService();
 
   useEffect(() => {
-    if (time === 0) {
-      resultService.saveResult(ROUND_TIME, wordIndex);
-    } else if (wordIndex === currSentence.split(' ').length) {
+    if (!isGameOver && (time === 0 || wordIndex === currSentence.split(' ').length)) {
       resultService.saveResult(ROUND_TIME - time, wordIndex);
+      setIsGameOver(true);
     }
-  }, [wordIndex, time])
+  }, [wordIndex, time, isGameOver])
 
   const wordCheckFunction = useCallback((value: string) => {
     if (currSentence.split(' ')[wordIndex].trim() === value.trim()) {
@@ -40,7 +41,7 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
     <div className="typing-container">
       <TextDisplay text={currSentence} currWordIndex={wordIndex} isCurrWordwrong={iswrong} />
       <div className="middle-bar">
-        <TypingInput wordCheckFunction={wordCheckFunction} isGameOver={time === 0 || wordIndex === currSentence.split(' ').length} />
+        <TypingInput wordCheckFunction={wordCheckFunction} isGameOver={isGameOver} />
         <Clock time={time} setTime={(time: number) => setTime(time)} />
       </div>
       <Leadboards results={resultService.getResults()} />

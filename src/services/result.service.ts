@@ -15,7 +15,7 @@ export class ResultService implements IResultService {
         const currentResults = this.getResults();
         currentResults.push({ time, score })
         const updatedResults = currentResults.sort((result1, result2) => {
-            if (result1.score > result2.score || result1 === result2) {
+            if ((result1.score / result1.time) >= (result2.score / result2.time)) {
                 return -1;
             }
             return 1;
