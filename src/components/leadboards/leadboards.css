@@ -1,11 +1,11 @@
 .leadboard-container {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 45rem;
+    flex-direction: column;
+    width: 90%;
     margin-top: 3rem;
-    height: 30%;
+    height: 25%;
     overflow-y: scroll;
+    align-items: center;
 }
 
 ::-webkit-scrollbar {

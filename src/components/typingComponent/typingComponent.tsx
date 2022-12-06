@@ -40,7 +40,7 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
     <div className="typing-container">
       <TextDisplay text={currSentence} currWordIndex={wordIndex} isCurrWordwrong={iswrong} />
       <div className="middle-bar">
-        <TypingInput wordCheckFunction={wordCheckFunction} isTimeUp={time === 0} />
+        <TypingInput wordCheckFunction={wordCheckFunction} isGameOver={time === 0 || wordIndex === currSentence.split(' ').length} />
         <Clock time={time} setTime={(time: number) => setTime(time)} />
       </div>
       <Leadboards results={resultService.getResults()} />

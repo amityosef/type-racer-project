@@ -4,15 +4,15 @@ import "./typingInput.css";
 
 interface TypingInputProps {
   wordCheckFunction: (value: string) => boolean;
-  isTimeUp: boolean;
+  isGameOver: boolean;
 }
 
-export const TypingInput = ({ wordCheckFunction, isTimeUp }: TypingInputProps) => {
+export const TypingInput = ({ wordCheckFunction, isGameOver }: TypingInputProps) => {
 
   const [content, setContent] = useState('');
 
   const edit = useCallback((value: string) => {
-    if (!isTimeUp) {
+    if (!isGameOver) {
       setContent(value);
     }
   }, [content]);

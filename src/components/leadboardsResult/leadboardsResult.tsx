@@ -10,8 +10,8 @@ export const LeadboardsResult = ({ result }: LeadboardsResultProps) => {
 
     return (
         <div className='leadboard-result'>
-            <div className='result-name'>{result.time}</div>
-            <div className='result-score'>{result.score}</div>
+            <div className='result-score'>{result.score + " :WPM"}</div>
+            <div className='result-name'>{"זמן: " + result.time}</div>
         </div>
     )
 
