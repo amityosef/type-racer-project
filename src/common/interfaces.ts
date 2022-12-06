@@ -4,8 +4,8 @@ export interface LeadBoardResult {
 }
 
 export interface LeadBoardFullResult {
-    [key: string]: {
-        name: string;
-        score: string;
-    }
+    results?: {
+        time: number;
+        score: number;
+    }[]
 }
