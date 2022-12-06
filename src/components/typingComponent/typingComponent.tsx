@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { SENTENCES_COUNT } from "../../common/consts";
+import { ROUND_TIME, SENTENCES_COUNT } from "../../common/consts";
 import { sentences } from "../../common/sentences";
 import { ResultService } from "../../services/result.service";
 import { Clock } from "../clock/clock";
@@ -15,14 +15,14 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
   const [currSentence, setCurrSentence] = useState<string>(sentences[randomNumber]);
   const [wordIndex, setWordIndex] = useState<number>(0);
   const [iswrong, setIswrong] = useState<boolean>(false);
-  const [time, setTime] = useState<number>(5);
+  const [time, setTime] = useState<number>(ROUND_TIME);
   const resultService = new ResultService();
 
   useEffect(() => {
     if (time === 0) {
-
+      resultService.saveResult(ROUND_TIME, wordIndex);
     } else if (wordIndex === currSentence.split(' ').length) {
-
+      resultService.saveResult(ROUND_TIME - time, wordIndex);
     }
   }, [wordIndex, time])
 

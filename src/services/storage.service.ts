@@ -1,14 +1,14 @@
-import { LeadBoardFullResult, LeadBoardResult } from "../common/interfaces";
+import { LeadBoardFullResult } from "../common/interfaces";
 
 export interface IStorageService {
-    loadFromStorage: (key: string) => LeadBoardResult[],
+    loadFromStorage: (key: string) => LeadBoardFullResult,
     insertToStorage: (data: LeadBoardFullResult, key: string) => void,
 }
 
 export class StorageService implements IStorageService {
     loadFromStorage(key: string) {
         const data = window.localStorage.getItem(key);
-        if(!!data){
+        if (!!data) {
             return JSON.parse(data);
         }
         return {};
