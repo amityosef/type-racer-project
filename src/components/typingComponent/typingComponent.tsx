@@ -12,8 +12,7 @@ interface TypingComponentProps { }
 
 export const TypingComponent = ({ }: TypingComponentProps) => {
   const randomNumber = Math.floor(Math.random() * SENTENCES_COUNT)
-  // const [currSentence, setCurrSentence] = useState<string>(sentences[randomNumber]);
-  const [currSentence, setCurrSentence] = useState<string>("kkk kkk kkk kkk");
+  const [currSentence, setCurrSentence] = useState<string>(sentences[randomNumber]);
   const [wordIndex, setWordIndex] = useState<number>(0);
   const [iswrong, setIswrong] = useState<boolean>(false);
   const [time, setTime] = useState<number>(ROUND_TIME);
