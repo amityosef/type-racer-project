@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import "./clock.css"
 
 interface ClockProps {
-    setIsTimeUp: () => void;
+    time: number;
+    setTime: (time: number) => void;
 }
 
-export const Clock = ({ setIsTimeUp }: ClockProps) => {
-    const [time, setTime] = useState<number>(30);
+export const Clock = ({ time, setTime }: ClockProps) => {
 
     const refreshClock = () => {
         setTime(time - 1);
@@ -18,8 +18,6 @@ export const Clock = ({ setIsTimeUp }: ClockProps) => {
             return function cleanup() {
                 clearInterval(timerId);
             };
-        } else {
-            setIsTimeUp();
         }
     }, [time]);
 

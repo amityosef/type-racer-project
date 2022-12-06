@@ -10,7 +10,7 @@ export const LeadboardsResult = ({ result }: LeadboardsResultProps) => {
 
     return (
         <div className='leadboard-result'>
-            <div className='result-name'>{result.name}</div>
+            <div className='result-name'>{result.time}</div>
             <div className='result-score'>{result.score}</div>
         </div>
     )
