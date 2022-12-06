@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { MENUTE_IN_SECONDS, ROUND_TIME, SENTENCES_COUNT } from "../../common/consts";
 import { sentences } from "../../common/sentences";
-import { ResultService } from "../../services/result.service";
 import { Clock } from "../clock/clock";
 import { Leadboards } from "../leadboards/leadboards";
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { TextDisplay } from "../textDisplay/textDisplay";
 import { TypingInput } from "../typingInput/typingInput";
 import "./typingComponent.css";
+import { LeadBoardResult } from "../../common/interfaces";
 
 interface TypingComponentProps { }
 
@@ -17,11 +18,29 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
   const [iswrong, setIswrong] = useState<boolean>(false);
   const [time, setTime] = useState<number>(ROUND_TIME);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
-  const resultService = new ResultService();
+
+  const { data } = useQuery({
+    queryKey: ['repoData'],
+    queryFn: async () => {
+      return fetch('http://localhost:9999/results').then((res: any) => res.json());
+    }
+  })
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      fetch('http://localhost:9999/results', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ time: ROUND_TIME - time, score: wordIndex * (MENUTE_IN_SECONDS / (ROUND_TIME - time)) })
+      })
+    }
+  })
 
   useEffect(() => {
     if (!isGameOver && (time === 0 || wordIndex === currSentence.split(' ').length)) {
-      resultService.saveResult(ROUND_TIME - time, wordIndex * (MENUTE_IN_SECONDS / (ROUND_TIME - time)));
+      mutation.mutate();
       setIsGameOver(true);
     }
   }, [wordIndex, time, isGameOver])
@@ -43,7 +62,7 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
         <TypingInput wordCheckFunction={wordCheckFunction} isGameOver={isGameOver} />
         <Clock time={time} setTime={(time: number) => setTime(time)} />
       </div>
-      <Leadboards results={resultService.getResults()} />
+      <Leadboards results={!!data ? data.data : []} />
     </div>
   );
 };
