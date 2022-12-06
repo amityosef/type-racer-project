@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ROUND_TIME, SENTENCES_COUNT } from "../../common/consts";
+import { MENUTE_IN_SECONDS, ROUND_TIME, SENTENCES_COUNT } from "../../common/consts";
 import { sentences } from "../../common/sentences";
 import { ResultService } from "../../services/result.service";
 import { Clock } from "../clock/clock";
@@ -22,7 +22,7 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
 
   useEffect(() => {
     if (!isGameOver && (time === 0 || wordIndex === currSentence.split(' ').length)) {
-      resultService.saveResult(ROUND_TIME - time, wordIndex);
+      resultService.saveResult(ROUND_TIME - time, wordIndex * (MENUTE_IN_SECONDS / (ROUND_TIME - time)));
       setIsGameOver(true);
     }
   }, [wordIndex, time, isGameOver])

@@ -17,11 +17,11 @@ export const TypingInput = ({ wordCheckFunction, isGameOver }: TypingInputProps)
     }
   }, [content]);
 
-  const submit = useCallback((e: any) => {
-    if (e.keyCode === SPACE_KEY_CODE && wordCheckFunction(content)) {
+  const submit = useCallback((charKeyCode: number) => {
+    if (charKeyCode === SPACE_KEY_CODE && wordCheckFunction(content)) {
       setContent('');
     }
   }, [content]);
 
-  return <input type={"text"} className="typing-input" onChange={(e: any) => edit(e.target.value)} onKeyUp={submit} value={content} />;
+  return <input type={"text"} className="typing-input" onChange={(e: any) => edit(e.target.value)} onKeyUp={(e: any) => submit(e.keyCode)} value={content} />;
 };

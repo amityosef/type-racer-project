@@ -4,8 +4,5 @@ export interface LeadBoardResult {
 }
 
 export interface LeadBoardFullResult {
-    results?: {
-        time: number;
-        score: number;
-    }[]
+    results?: LeadBoardResult[];
 }
