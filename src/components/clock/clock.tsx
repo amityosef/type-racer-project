@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import "./clock.css"
+import { Box } from '@mui/material';
+import React, { useEffect } from 'react';
 
 interface ClockProps {
     time: number;
@@ -22,9 +22,21 @@ export const Clock = ({ time, setTime }: ClockProps) => {
     }, [time]);
 
     return (
-        <div className='clock-block'>
+        <Box
+            sx={{
+                width: '20%',
+                height: '100%',
+                backgroundColor: 'black',
+                color: 'white',
+                textAlign: 'center',
+                alignContent: 'center',
+                justifyContent: 'center',
+                lineHeight: '3rem',
+                borderRadius: '1.2rem',
+                fontSize: 'x-large'
+            }}>
             {time}
-        </div>
+        </Box>
     )
 
 }

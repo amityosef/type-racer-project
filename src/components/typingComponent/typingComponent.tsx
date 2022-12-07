@@ -2,16 +2,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import { MENUTE_IN_SECONDS, ROUND_TIME, SENTENCES_COUNT } from "../../common/consts";
 import { sentences } from "../../common/sentences";
 import { Clock } from "../clock/clock";
+import { Box } from '@mui/material';
 import { Leadboards } from "../leadboards/leadboards";
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { TextDisplay } from "../textDisplay/textDisplay";
 import { TypingInput } from "../typingInput/typingInput";
-import "./typingComponent.css";
-import { LeadBoardResult } from "../../common/interfaces";
 
-interface TypingComponentProps { }
-
-export const TypingComponent = ({ }: TypingComponentProps) => {
+export const TypingComponent = () => {
   const randomNumber = Math.floor(Math.random() * SENTENCES_COUNT)
   const [currSentence, setCurrSentence] = useState<string>(sentences[randomNumber]);
   const [wordIndex, setWordIndex] = useState<number>(0);
@@ -56,13 +53,28 @@ export const TypingComponent = ({ }: TypingComponentProps) => {
   }, [wordIndex]);
 
   return (
-    <div className="typing-container">
+    <Box sx={{
+      height: '95%',
+      width: '70%',
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: 'whitesmoke',
+      boxShadow: '3px 3px 30px 3px #ccc',
+      alignItems: 'center',
+      borderRadius: '4rem'
+    }}>
+
       <TextDisplay text={currSentence} currWordIndex={wordIndex} isCurrWordwrong={iswrong} />
-      <div className="middle-bar">
+      <Box sx={{
+        height: '8%',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-around'
+      }}>
         <TypingInput wordCheckFunction={wordCheckFunction} isGameOver={isGameOver} />
         <Clock time={time} setTime={(time: number) => setTime(time)} />
-      </div>
+      </Box>
       <Leadboards results={!!data ? data.data : []} />
-    </div>
+    </Box>
   );
 };

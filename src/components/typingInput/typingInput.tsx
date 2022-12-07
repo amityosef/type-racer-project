@@ -1,6 +1,6 @@
-import React, { KeyboardEventHandler, useCallback, useState } from "react";
+import Input from "@mui/material/Input";
+import React, { ChangeEventHandler, KeyboardEvent, useCallback, useState } from "react";
 import { SPACE_KEY_CODE } from "../../common/consts";
-import "./typingInput.css";
 
 interface TypingInputProps {
   wordCheckFunction: (value: string) => boolean;
@@ -11,7 +11,8 @@ export const TypingInput = ({ wordCheckFunction, isGameOver }: TypingInputProps)
 
   const [content, setContent] = useState('');
 
-  const edit = useCallback((value: string) => {
+  const edit = useCallback((e: any) => {
+    const value = (e as unknown as React.FormEvent<HTMLInputElement>).currentTarget.value;
     if (!isGameOver) {
       setContent(value);
     }
@@ -23,5 +24,13 @@ export const TypingInput = ({ wordCheckFunction, isGameOver }: TypingInputProps)
     }
   }, [content]);
 
-  return <input type={"text"} className="typing-input" onChange={(e: any) => edit(e.target.value)} onKeyUp={(e: any) => submit(e.keyCode)} value={content} />;
+  return <Input type={"text"} sx={{
+    direction: 'rtl',
+    border: 'none',
+    width: '50%',
+    height: '100%',
+    paddingRight: '1rem',
+    outline: 'none',
+    backgroundColor: "#e2e2e2"
+  }} onChange={e => edit(e)} onKeyUp={(e: KeyboardEvent) => submit(e.keyCode)} value={content} />;
 };
