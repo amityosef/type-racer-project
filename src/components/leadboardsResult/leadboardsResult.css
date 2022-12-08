@@ -1,0 +1,22 @@
+.leadboard-result {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    border: 1px solid #000;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.leadboard-result:hover {
+    background-color: #dfdfdf;
+}
+
+.result-name {
+    font-size: x-large;
+}
+
+.result-score {
+    font-size: x-large;
+}

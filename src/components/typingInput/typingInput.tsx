@@ -4,17 +4,24 @@ import "./typingInput.css";
 
 interface TypingInputProps {
   wordCheckFunction: (value: string) => boolean;
+  isGameOver: boolean;
 }
 
-export const TypingInput = ({ wordCheckFunction }: TypingInputProps) => {
+export const TypingInput = ({ wordCheckFunction, isGameOver }: TypingInputProps) => {
 
   const [content, setContent] = useState('');
 
-  const submitEdit = useCallback((e: any) => {
-    if (e.keyCode === SPACE_KEY_CODE && wordCheckFunction(content)) {
+  const edit = useCallback((value: string) => {
+    if (!isGameOver) {
+      setContent(value);
+    }
+  }, [content]);
+
+  const submit = useCallback((charKeyCode: number) => {
+    if (charKeyCode === SPACE_KEY_CODE && wordCheckFunction(content)) {
       setContent('');
     }
   }, [content]);
 
-  return <input type={"text"} className="typing-input" onChange={(e: any) => setContent(e.target.value)} onKeyUp={submitEdit} value={content} />;
+  return <input type={"text"} className="typing-input" onChange={(e: any) => edit(e.target.value)} onKeyUp={(e: any) => submit(e.keyCode)} value={content} />;
 };
