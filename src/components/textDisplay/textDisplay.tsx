@@ -1,6 +1,5 @@
-import React from "react";
-import { v4 } from "uuid";
-import "./textDisplay.css";
+import { Box } from "@mui/system";
+import React, { useCallback, useMemo } from "react";
 
 interface TextDisplayProps {
   text: string;
@@ -9,16 +8,47 @@ interface TextDisplayProps {
 }
 
 export const TextDisplay = ({ text, isCurrWordwrong, currWordIndex }: TextDisplayProps) => {
-  return <div className="display-text">
-    <div className="words-container">
+
+  const setWordColor = useCallback((index: number) => {
+    if (index < currWordIndex) {
+      return '#00f51c';
+    } else if (index === currWordIndex && isCurrWordwrong) {
+      return 'red';
+    }
+    return 'black';
+  }, [isCurrWordwrong, currWordIndex])
+
+
+
+  return <Box
+    sx={{
+      width: '85%',
+      height: '35%',
+      direction: 'rtl',
+      backgroundColor: 'transparent',
+      borderRadius: '1rem',
+      boxShadow: '0px 1px 21px 8px #ccc',
+      margin: '2rem',
+      padding: '2rem',
+      fontize: 'large'
+    }}>
+
+    <Box sx={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      width: '100%',
+      height: '100%'
+    }}>
       {text.split(' ').map((word, index) => {
-        if (index < currWordIndex) {
-          return <div key={v4()} className="word correct">{word}</div>
-        } else if (index === currWordIndex && isCurrWordwrong) {
-          return <div key={v4()} className="word wrong">{word}</div>
-        }
-        return <div key={v4()} className="word">{word}</div>
+        let color = setWordColor(index);
+        return <Box key={index} sx={{
+          margin: '0.2rem',
+          color
+        }}>
+          {word}
+        </Box>
       })}
-    </div>
-  </div>;
+
+    </Box>
+  </Box>
 };
