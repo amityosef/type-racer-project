@@ -11,15 +11,15 @@ export const TypingInput = ({ wordCheckFunction, isGameOver }: TypingInputProps)
 
   const [content, setContent] = useState('');
 
-  const edit = useCallback((e: any) => {
-    const value = (e as unknown as React.FormEvent<HTMLInputElement>).currentTarget.value;
+  const edit = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = e.currentTarget.value;
     if (!isGameOver) {
       setContent(value);
     }
   }, [content]);
 
-  const submit = useCallback((charKeyCode: number) => {
-    if (charKeyCode === SPACE_KEY_CODE && wordCheckFunction(content)) {
+  const submit = useCallback((e: KeyboardEvent) => {
+    if (e.keyCode === SPACE_KEY_CODE && wordCheckFunction(content)) {
       setContent('');
     }
   }, [content]);
@@ -32,5 +32,5 @@ export const TypingInput = ({ wordCheckFunction, isGameOver }: TypingInputProps)
     paddingRight: '1rem',
     outline: 'none',
     backgroundColor: "#e2e2e2"
-  }} onChange={e => edit(e)} onKeyUp={(e: KeyboardEvent) => submit(e.keyCode)} value={content} />;
+  }} onChange={edit} onKeyUp={submit} value={content} />;
 };

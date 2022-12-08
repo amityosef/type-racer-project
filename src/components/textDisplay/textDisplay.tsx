@@ -1,5 +1,5 @@
 import { Box } from "@mui/system";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 
 interface TextDisplayProps {
   text: string;
@@ -9,7 +9,7 @@ interface TextDisplayProps {
 
 export const TextDisplay = ({ text, isCurrWordwrong, currWordIndex }: TextDisplayProps) => {
 
-  const setWordColor = (index: number) => useMemo(() => {
+  const setWordColor = useCallback((index: number) => {
     if (index < currWordIndex) {
       return '#00f51c';
     } else if (index === currWordIndex && isCurrWordwrong) {
